@@ -1,0 +1,99 @@
+from sklearn.datasets import fetch_california_housing
+
+data = fetch_california_housing(as_frame=True)['frame']
+
+print(data)
+print("--------------------------")
+
+# Sprawdza czy wartosc w kolumnie 'MedInc' jest wybrakowana
+print(data['MedInc'].isnull())
+print("--------------------------")
+
+# Sprawdza czy w ramce wystepuje przynajmniej jedna wartosc true
+print(data['MedInc'].isnull().any())
+print("--------------------------")
+
+# Sprawdza czy w ramce wystepuja tylko wartosci true
+print(data['MedInc'].isnull().all())
+print("--------------------------")
+
+# Sprawdza, w ktorych kulumnach wystepują wartosci wybrakowane
+print(data.isnull().any(axis=0))
+print("--------------------------")
+
+# Przykladowy kod usuwajacy kilka wartosci metoda chybil-trafil
+from random import randint
+
+# Minimalny i maksymalny odsetek komorek do usuniecia wartosci
+min_percent, max_percent = 0.001, 0.003
+
+# Wyznacza pseudolosowo od 0.1 do 0.3% komórek z ramki danych
+cells_to_remove = randint(int(data.size * min_percent), int(data.size * max_percent))
+
+# Pseudolosowy wybor indeksow wierszy i kolumn
+for _ in range(cells_to_remove):
+  row_idx = randint(0, data.shape[0] - 1)  # pseudolosowy indeks wiersza
+  col_idx = randint(0, data.shape[1] - 1)  # pseudolosowy indeks kolumny
+
+# Usuniecie pseudolosowo wskazanej komorki
+  data.iat[row_idx, col_idx] = None
+
+print(data.isnull().any(axis=0))
+print("--------------------------")
+
+# Uzupelnienie wybrakowanych wartosci, fillna zwraca ramke
+print(data['MedInc'].fillna(0))
+print("--------------------------")
+
+# Umieszczenie w oryginalnej ramce danych wybrakowanych wartosci na obiekcie
+# klasy DataFrame, przekazujac jako parametr słownik mapujacy nazwy kolumn na wartosci
+# ktorymi maja zostac zastapione wartosci wybrakowane
+data.fillna({
+    'Longitude': 0,
+    'Latitude': 100,
+})
+
+# Wyswietlanie statystyk
+data['MedHouseVal'].mean()
+data['MedHouseVal'].median()
+
+# Wyznaczanie dominanty (nie zawsze musi to byc jedna wartosc)
+data['Population'].mode().iloc[0]
+
+
+# Oczyszczanie danych z biblioteka Scikit-learn
+from sklearn.impute import SimpleImputer
+
+# Klasa SimpleImputer przyjmuje w inicjalizatorze parametr strategy,
+# wybieramy metode uzupelniania brakujacych wartosci (mean,median,most_frequent,constant)
+imputer = SimpleImputer(strategy='median')
+
+# Wybieramy zestaw pasujacych atrybutow, dla ktorych zastosowana zostanie strategia
+num_attributes = data.select_dtypes(include=['number'])
+
+print(num_attributes)
+print("--------------------------")
+
+print(num_attributes.isnull().any(axis=0))
+print("--------------------------")
+
+# Metoda fit pozwala na automatyczne wyznaczenie wartości do uzupełnienie w każdym z atrybutów
+print(imputer.fit(num_attributes))
+print("--------------------------")
+
+# W atrybucie statistics_ zawarte są wyznaczone wartości do zastąpienai brakujących według obranej strategii
+imputer.statistics_
+print("--------------------------")
+
+# 
+new_num_attributes = imputer.transform(num_attributes)
+
+import pandas as pd
+
+new_num_attributes = pd.DataFrame(new_num_attributes, columns=data.columns)
+
+print(new_num_attributes)
+
+print(new_num_attributes.isnull().any(axis=0))
+
+print("Co to potoki")
