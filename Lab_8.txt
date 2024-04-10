@@ -1,0 +1,21 @@
+Outlook;Temperature;Humidity;Windy;Play
+Rainy;Hot;High;False;No
+Rainy;Hot;High;True;No
+Overcast;Hot;High;False;Yes
+Sunny;Mild;High;False;Yes
+Sunny;Cool;Normal;False;Yes
+Sunny;Cool;Normal;True;No
+Overcast;Cool;Normal;True;Yes
+Rainy;Mild;High;False;No
+Rainy;Cool;Normal;False;Yes
+Sunny;Mild;Normal;False;Yes
+Rainy;Mild;Normal;True;Yes
+Overcast;Mild;High;True;Yes
+Overcast;Hot;Normal;False;Yes
+Sunny;Mild;High;True;No
+
+https://planetcalc.com/2476/ - Entropy Calc
+
+https://planetcalc.com/8421/ - Information gain calculator
+
+https://planetcalc.com/8443/ - Decision tree builder
