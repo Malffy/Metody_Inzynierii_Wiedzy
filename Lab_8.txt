@@ -19,3 +19,18 @@ https://planetcalc.com/2476/ - Entropy Calc
 https://planetcalc.com/8421/ - Information gain calculator
 
 https://planetcalc.com/8443/ - Decision tree builder
+
+TP - True Positive (prawdziwie pozytywne)
+FP - False Positive (fałszywie pozytywne)
+FN - False Negative (fałszywie negatywne)
+TN - True Negative (prawdziwie negatywne)
+
+Jest spamem/nie jest spamem - rozpoznana pozytywnie/negatywnie (wartrości bezwzględne)
+
+Dokładność globlana i dokładność zbalansowane - wynikiem jest ocena jakości modelu a różnica pomiędzy nimi jest taka, że
+dokładność zbalanosowaną używamy gdy liczba obiektów  w obrębie poszczególnych klas decyzyjnych nie jest do siebie zbliżona.
+
+Dodatkowe miary klasyfikacji: (Tym większa prezycja tym mniejsza czułość)
+Precyzja - Odsetek wiadomości które wylądowały w spamie i zostały pozytywnie rozpoznane jako spam tp/tp+fp
+Sensitivity - Odsetek wiadomości które wylądowały w spamie i zostały fałszywie rozpoznane jako spam tp/tp+fn
+Specificity - Odsetek wiadomości które wylądowały w spamie ale nie są spamem tn/tn+fp
